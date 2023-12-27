@@ -1,27 +1,20 @@
 #!/usr/bin/env node
 
-import emojiJaObject from '../lib/data/emoji_ja.json' assert { type: "json" };
-import * as nodeEmoji from 'node-emoji'
+import Emoji from "./emoji.js";
+
+// Next↓
+// エラーハンドリング
+// 該当の日本語絵文字がなかった場合
+// 該当の英語emojiがなかった場合
 
 const [, , emojiJaName] = process.argv;
 
-console.log(emojiJaName)
+console.log(emojiJaName);
 
-const SearchEmoji = () => {
-  const array = []
-  for (const emoji in emojiJaObject) {
-    const emojiMeta= emojiJaObject[emoji]
-    if (emojiMeta.keywords.includes(emojiJaName)) {
-      array.push(object)
-    }
-  }
-  return array
-}
-
-const emojiArray = SearchEmoji()
+const emojiArray = Emoji.search(emojiJaName);
 
 emojiArray.forEach((emoji) => {
-  console.log(emoji)
-  const convertedEmoji = nodeEmoji.which(emoji, { markdown: true })
-  console.log(convertedEmoji)
-})
+  console.log(emoji);
+  const convertedEmoji = Emoji.which(emoji);
+  console.log(convertedEmoji);
+});
